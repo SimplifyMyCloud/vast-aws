@@ -1,0 +1,335 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "CloudFromationCreator",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:UpdateStack",
+                "cloudformation:CreateStack"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "CloudFromationEditor",
+            "Effect": "Allow",
+            "Action": [
+                "cloudformation:DeleteStack",
+                "cloudformation:DescribeStackEvents"
+            ],
+            "Resource": "arn:aws:cloudformation:*:*:stack/*/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "AWSLambdaCreator",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:CreateFunction",
+                "lambda:TagResource",
+                "lambda:GetFunction"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "RollPass",
+            "Effect": "Allow",
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "iam:TagRole",
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "AWSLambdaEditor",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:UpdateFunctionCode",
+                "lambda:UpdateFunctionConfiguration",
+                "lambda:DeleteFunction",
+                "lambda:InvokeFunction"
+            ],
+            "Resource": "arn:aws:lambda:*:*:function:*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "EC2InstanceCreatorWithTag",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:RunInstances",
+                "ec2:CreateVolume"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "EC2InstanceEditor",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:AttachVolume",
+                "ec2:DeleteVolume",
+                "ec2:TerminateInstances",
+                "ec2:TerminateInstances"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "DescribeComponants",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DescribeKeyPairs",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcs",
+                "autoscaling:DescribeLaunchConfigurations",
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "rds:DescribeDBSecurityGroups",
+                "cloudformation:DescribeStacks",
+                "iam:GetRole",
+                "iam:PutRolePolicy",
+                "iam:AddRoleToInstanceProfile",
+                "elasticloadbalancing:DescribeTargetGroups",
+                "elasticloadbalancing:DescribeListeners",
+                "ec2:CreateSecurityGroup",
+                "rds:CreateDBSubnetGroup",
+                "elasticloadbalancing:CreateTargetGroup",
+                "rds:DescribeDBSubnetGroups",
+                "kms:DescribeKey",
+                "kms:CreateGrant",
+                "secretsmanager:CreateSecret",
+                "rds:DescribeDBInstances",
+                "elasticloadbalancing:CreateListener",
+                "iam:GetInstanceProfile",
+                "ec2:RunInstances",
+                "ec2:DescribeLaunchTemplates",
+                "ec2:DescribeLaunchTemplateVersions",
+                "ec2:CreateLaunchTemplateVersion",
+                "iam:DeleteInstanceProfile",
+                "iam:AttachRolePolicy",
+                "iam:ListRolePolicies",
+                "ec2:ModifyLaunchTemplate",
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:DescribeAutoScalingInstances",
+                "iam:CreateInstanceProfile",
+                "ec2:DescribeInstances",
+                "ec2:CreateTags",
+                "rds:ListTagsForResource"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "SecurityGroupTagCreator",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags"
+            ],
+            "Resource": "arn:aws:ec2:*:*:security-group/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "SecurityGroupTagCreator2",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:RevokeSecurityGroupEgress",
+                "ec2:RevokeSecurityGroupIngress"
+            ],
+            "Resource": "arn:aws:ec2:*:*:security-group/*"
+        },
+        {
+            "Sid": "InstanceProfileEditor",
+            "Effect": "Allow",
+            "Action": [
+                "iam:DeleteInstanceProfile",
+                "iam:RemoveRoleFromInstanceProfile"
+            ],
+            "Resource": "arn:aws:iam::*:instance-profile/*VocInstanceProfile*"
+        },
+        {
+            "Sid": "LaunchTemplateTagCreator",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags"
+            ],
+            "Resource": "arn:aws:ec2:*:*:launch-template/*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "LaunchTemplateTagCreatorForASG",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateTags"
+            ],
+            "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/*McVmsASG*"
+        },
+        {
+            "Sid": "SecurityGroupEditor",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:CreateSecurityGroup",
+                "ec2:AuthorizeSecurityGroupIngress",
+                "ec2:AuthorizeSecurityGroupEgress",
+                "ec2:RevokeSecurityGroupIngress",
+                "ec2:RevokeSecurityGroupEgress",
+                "ec2:CreateSecurityGroup",
+                "ec2:DeleteSecurityGroup"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "RolePolicyCreator",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateRole",
+                "iam:CreatePolicy",
+                "iam:AttachRolePolicy",
+                "iam:GetRolePolicy"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "ASGRoleAttacher",
+            "Effect": "Allow",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:PutRolePolicy"
+            ],
+            "Resource": "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/*-McVmsASG-*"
+        },
+        {
+            "Sid": "RolePolicyEditor",
+            "Effect": "Allow",
+            "Action": [
+                "iam:DetachRolePolicy",
+                "iam:DeletePolicy",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRole",
+                "iam:DetachRolePolicy",
+                "iam:DeleteRolePolicy",
+                "iam:AttachRolePolicy",
+                "iam:GetRolePolicy"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "DBSecurityGroupCreator",
+            "Effect": "Allow",
+            "Action": [
+                "rds:CreateDBSecurityGroup",
+                "rds:AddTagsToResource",
+                "secretsmanager:TagResource"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "DBInstanceCreator",
+            "Effect": "Allow",
+            "Action": [
+                "rds:CreateDBInstance"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "DBSecurityGroupEditor",
+            "Effect": "Allow",
+            "Action": [
+                "rds:AuthorizeDBSecurityGroupIngress",
+                "rds:RevokeDBSecurityGroupIngress",
+                "rds:DeleteDBSecurityGroup",
+                "rds:DeleteDBInstance",
+                "rds:ModifyDBInstance",
+                "rds:AddTagsToResource"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "DBInstanceDeleter",
+            "Effect": "Allow",
+            "Action": [
+                "rds:DeleteDBInstance"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "DBSubNetGroupDeleter",
+            "Effect": "Allow",
+            "Action": [
+                "rds:DeleteDBSubnetGroup"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        }
+    ]
+}

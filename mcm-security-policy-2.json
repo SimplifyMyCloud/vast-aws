@@ -1,0 +1,62 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AutoScalingGroupCreator",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:CreateAutoScalingGroup",
+                "autoscaling:CreateLaunchConfiguration",
+                "elasticloadbalancing:CreateLoadBalancer",
+                "elasticloadbalancing:CreateTargetGroup",
+                "elasticloadbalancing:CreateListener",
+                "autoscaling:UpdateAutoScalingGroup",
+                "ec2:CreateLaunchTemplate",
+                "elasticloadbalancing:AddTags"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:RequestTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "AutoScalingGroupEditor",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:DeleteLaunchConfiguration",
+                "ec2:DeleteLaunchTemplate",
+                "autoscaling:DeleteLaunchConfiguration",
+                "elasticloadbalancing:CreateTargetGroup",
+                "ec2:CreateLaunchTemplateVersion",
+                "ec2:ModifyLaunchTemplate",
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "autoscaling:UpdateAutoScalingGroup"
+            ],
+            "Resource": "*",
+            "Condition": {
+                "StringEquals": {
+                    "aws:ResourceTag/VoC:component": "mcvms"
+                }
+            }
+        },
+        {
+            "Sid": "LoadBalancerListenerDeleter",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DeleteListener"
+            ],
+            "Resource": "arn:aws:elasticloadbalancing:*:*:listener/net/LB-*/*/*"
+        },
+        {
+            "Sid": "LoadBalancerTargetGroupDeleter",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DeleteTargetGroup"
+            ],
+            "Resource": "arn:aws:elasticloadbalancing:*:*:targetgroup/TG-*/*"
+        }
+    ]
+}
