@@ -23,7 +23,7 @@ resource "aws_s3_bucket_public_access_block" "deploy_bucket_pab" {
 # Enable versioning for backup/recovery
 resource "aws_s3_bucket_versioning" "deploy_bucket_versioning" {
   bucket = aws_s3_bucket.deploy_bucket.id
-  
+
   versioning_configuration {
     status = "Enabled"
   }
@@ -43,7 +43,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "deploy_bucket_enc
 # Create bucket policy from JSON file with bucket name substitution
 resource "aws_s3_bucket_policy" "deploy_bucket_policy" {
   bucket = aws_s3_bucket.deploy_bucket.id
-  
+
   policy = replace(
     file("${path.module}/s3-security-policy.json"),
     "<bucket-name>",

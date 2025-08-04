@@ -1,6 +1,6 @@
 terraform {
   required_version = ">= 1.0"
-  
+
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -20,7 +20,7 @@ terraform {
 provider "aws" {
   region  = "us-west-2"
   profile = "monks-poc-admin-chrisl"
-  
+
   default_tags {
     tags = {
       Project     = "vast-datalayer-poc"

@@ -5,9 +5,9 @@ resource "aws_iam_policy" "mcm_security_policy_1" {
   name        = "vast-datalayer-poc-mcm-policy-1"
   path        = "/"
   description = "MCM Security Policy 1 for Vast Datalayer POC"
-  
+
   policy = file("${path.module}/mcm-security-policy-1.json")
-  
+
   tags = {
     Name = "vast-datalayer-poc-mcm-policy-1"
   }
@@ -18,9 +18,9 @@ resource "aws_iam_policy" "mcm_security_policy_2" {
   name        = "vast-datalayer-poc-mcm-policy-2"
   path        = "/"
   description = "MCM Security Policy 2 for Vast Datalayer POC"
-  
+
   policy = file("${path.module}/mcm-security-policy-2.json")
-  
+
   tags = {
     Name = "vast-datalayer-poc-mcm-policy-2"
   }
@@ -31,9 +31,9 @@ resource "aws_iam_policy" "voc_security_policy" {
   name        = "vast-datalayer-poc-voc-policy"
   path        = "/"
   description = "VOC Security Policy for Vast Datalayer POC"
-  
+
   policy = file("${path.module}/voc-security-policy.json")
-  
+
   tags = {
     Name = "vast-datalayer-poc-voc-policy"
   }
