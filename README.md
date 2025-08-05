@@ -21,17 +21,36 @@ The Terraform configuration creates the following AWS resources:
 - **NAT Gateway**: Single NAT gateway in us-west-2a for private subnet internet access (cost-optimized for POC)
 - **Route Tables**: Separate routing for public and private subnets
 
-#### 2. **IAM Security Policies (iam-policies.tf)**
+#### 2. **Security Groups (security-groups.tf)**
+- **Private Subnet Security Group**: Comprehensive security group for private subnet resources
+  - **Ingress Rules** (all from VPC CIDR 10.0.0.0/16):
+    - ICMP (ping)
+    - SSH (port 22)
+    - HTTP (port 80)
+    - HTTPS (port 443)
+    - VMS (port 5551)
+    - RPC (port 111)
+    - NetBIOS/SMB (port 445)
+    - NFS (port 2049)
+    - MLX (port 6126)
+    - Replication Peer Initialization (port 49002)
+    - NSM (port 20106)
+    - Replication Initialization (port 49001)
+    - NLM (port 20107)
+    - Mount (port 20048)
+  - **Egress Rules**: Allow all outbound traffic
+
+#### 3. **IAM Security Policies (iam-policies.tf)**
 - **MCM Security Policy 1**: Permissions for CloudFormation, Lambda, EC2, RDS operations with "mcvms" component tag
 - **MCM Security Policy 2**: Permissions for Auto Scaling Groups and Load Balancers with "mcvms" component tag
 - **VOC Security Policy**: Permissions for various AWS services with "voc" component tag
 
-#### 3. **SSH Access (keypair.tf)**
+#### 4. **SSH Access (keypair.tf)**
 - **RSA Key Pair**: 4096-bit RSA key automatically generated
 - **EC2 Key Pair**: Registered with AWS for SSH access to instances
 - **Local Storage**: Private key saved locally as `vast-datalayer-poc-key.pem`
 
-#### 4. **S3 Deployment Bucket (deploy-bucket.tf)**
+#### 5. **S3 Deployment Bucket (deploy-bucket.tf)**
 - **Bucket Name**: vast-deploy-bucket
 - **Security Features**:
   - Public access blocked
@@ -94,8 +113,8 @@ cd vast-aws
 Set up your AWS profile or use the provided authentication script:
 
 ```bash
-# Option 1: Use the authentication script
-./aws-reauth.sh sso monks-poc-admin-chrisl
+# Option 1: Use the authentication script for SSO
+./aws-reauth.sh sso monks
 
 # Option 2: Set environment variables
 source .env
@@ -137,6 +156,7 @@ terraform output > infrastructure-outputs.txt
 Key outputs include:
 - VPC ID
 - Subnet IDs
+- Private subnet security group ID
 - S3 bucket name
 - IAM policy ARNs
 - SSH key pair name
@@ -157,6 +177,14 @@ ssh -i vast-datalayer-poc-key.pem ec2-user@<instance-ip>
 - **Public Subnets**: Use for resources that need direct internet access (load balancers, NAT gateways)
 - **Private Subnets**: Use for application servers and databases
 - All private subnet traffic routes through the NAT gateway for internet access
+
+### Security Groups
+
+The infrastructure includes a comprehensive security group for private subnet resources:
+- **Name**: vast-datalayer-poc-private-sg
+- **Ingress**: Allows all required protocols (SSH, HTTP/HTTPS, VMS, NFS, etc.) from within the VPC
+- **Egress**: Allows all outbound traffic
+- **Usage**: Attach this security group to EC2 instances and other resources in private subnets
 
 ### Security Policies
 
@@ -181,6 +209,7 @@ vast-aws/
 ├── README.md                    # This file
 ├── provider.tf                  # AWS provider configuration
 ├── vpc.tf                       # VPC and networking resources
+├── security-groups.tf           # Security group definitions
 ├── iam-policies.tf              # IAM policy definitions
 ├── keypair.tf                   # SSH key pair configuration
 ├── deploy-bucket.tf             # S3 deployment bucket
