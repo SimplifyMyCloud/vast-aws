@@ -19,7 +19,8 @@
       "Bash(nmap:*)",
       "Bash(ssh:*)",
       "Bash(nc:*)",
-      "Bash(aws ec2 describe-images:*)"
+      "Bash(aws ec2 describe-images:*)",
+      "Bash(timeout:*)"
     ],
     "deny": []
   }
