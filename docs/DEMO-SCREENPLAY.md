@@ -2,7 +2,7 @@
 
 **FADE IN:**
 
-### INT. TRADE SHOW FLOOR - NAB VEGAS - DAY
+### INT. TRADE SHOW FLOOR - IBC AMSTERDAM - DAY
 
 *The VAST booth gleams with massive displays showing racing footage. A weary BROADCAST EXEC (50s, ESPN polo shirt) approaches, dragging a roller bag.*
 
