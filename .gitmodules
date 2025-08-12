@@ -1,0 +1,3 @@
+[submodule "vasttams"]
+	path = vasttams
+	url = https://github.com/jesseVast/vasttams

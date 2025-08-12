@@ -20,7 +20,18 @@
       "Bash(ssh:*)",
       "Bash(nc:*)",
       "Bash(aws ec2 describe-images:*)",
-      "Bash(timeout:*)"
+      "Bash(timeout:*)",
+      "Bash(./deploy-tams.sh:*)",
+      "Bash(./deploy-tams-remote.sh:*)",
+      "Bash(./deploy-tams-sudo.sh:*)",
+      "Bash(./deploy-tams-minimal.sh:*)",
+      "Bash(source .env)",
+      "Bash(echo:*)",
+      "Bash(./manage-tams.sh status:*)",
+      "Bash(./deploy-tams-vast-integration.sh:*)",
+      "Bash(./deploy-tams-aws-s3.sh:*)",
+      "Bash(ping:*)",
+      "Bash(./configure-tams-vast-s3.sh:*)"
     ],
     "deny": []
   }
