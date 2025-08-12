@@ -1,7 +1,11 @@
 # VAST-TAMS Integration Documentation
 
 ## Overview
-This document describes the successful integration between the TAMS (Time-addressable Media Store) API and the VAST Data storage cluster deployed in AWS.
+This document describes the successful integration between the TAMS (Time-addressable Media Store) API v6.0.1 and the VAST Data storage cluster deployed in AWS.
+
+**Last Updated**: August 12, 2025  
+**TAMS Version**: 6.0.1  
+**Status**: ✅ OPERATIONAL
 
 ## Architecture
 
@@ -16,8 +20,8 @@ This document describes the successful integration between the TAMS (Time-addres
 │  │   (Public Subnet)     │       │   - 10.0.11.54        │  │
 │  │                       │       │   - 10.0.11.170       │  │
 │  │   Docker Container:   │       │   (Private Subnet)     │  │
-│  │   - TAMS API          │       │                        │  │
-│  │   - SQLite DB         │       │   S3 Buckets:          │  │
+│  │   - TAMS API v6.0.1   │       │                        │  │
+│  │   - VAST DB Client    │       │   S3 Buckets:          │  │
 │  │   - Boto3 S3 Client   │       │   - tams-db            │  │
 │  └──────────────────────┘       │   - tams-s3            │  │
 │                                  └────────────────────────┘  │
@@ -32,13 +36,16 @@ This document describes the successful integration between the TAMS (Time-addres
 
 ## Connection Details
 
-### TAMS API Endpoints
+### TAMS API Endpoints (v6.0.1)
 - **Base URL**: http://34.216.9.25:8000
-- **Health Check**: http://34.216.9.25:8000/health
+- **Health Check**: http://34.216.9.25:8000/health (shows version 6.0)
 - **API Documentation**: http://34.216.9.25:8000/docs
-- **VAST Buckets**: http://34.216.9.25:8000/api/v1/vast/buckets
-- **Sources**: http://34.216.9.25:8000/api/v1/sources
-- **Flows**: http://34.216.9.25:8000/api/v1/flows
+- **OpenAPI Spec**: http://34.216.9.25:8000/openapi.json
+- **VAST Status**: http://34.216.9.25:8000/vast/status
+- **Service Info**: http://34.216.9.25:8000/service
+- **Sources**: http://34.216.9.25:8000/sources
+- **Flows**: http://34.216.9.25:8000/flows
+- **Flow Delete Requests**: http://34.216.9.25:8000/flow-delete-requests
 
 ### VAST Cluster Configuration
 - **Admin UI**: https://10.0.11.161
@@ -116,25 +123,38 @@ sudo docker exec -it vasttams /bin/bash
 curl -s http://34.216.9.25:8000/health | python3 -m json.tool
 ```
 
-Expected response:
+Expected response (v6.0.1):
 ```json
 {
     "status": "healthy",
-    "service": "TAMS with VAST S3",
-    "storage": {
-        "vast_s3": "connected",
-        "endpoint": "http://10.0.11.54",
-        "info": "Connected to VAST cluster - 2 buckets found",
-        "buckets": 2
+    "timestamp": "2025-08-12T17:40:11.304953+00:00",
+    "version": "6.0",
+    "system": {
+        "memory_usage_bytes": 1226805248,
+        "memory_total_bytes": 16555208704,
+        "cpu_percent": 0.5,
+        "uptime_seconds": 327919.30497026443
     },
-    "database": "connected",
-    "sources_count": 0
+    "telemetry": {
+        "tracing_enabled": true,
+        "metrics_enabled": true
+    }
 }
 ```
 
-### 2. List VAST Buckets
+### 2. Check VAST Status
 ```bash
-curl -s http://34.216.9.25:8000/api/v1/vast/buckets | python3 -m json.tool
+curl -s http://34.216.9.25:8000/vast/status | python3 -m json.tool
+```
+
+Expected response:
+```json
+{
+    "version": "6.0.1",
+    "vast_connected": true,
+    "endpoint": "http://10.0.11.54",
+    "buckets": ["tams-db", "tams-s3"]
+}
 ```
 
 ### 3. Create a Source
@@ -157,11 +177,13 @@ curl -s http://34.216.9.25:8000/api/v1/sources | python3 -m json.tool
 
 The following scripts are available for deployment and configuration:
 
-1. **`deploy-tams-minimal.sh`** - Minimal POC deployment without external dependencies
-2. **`deploy-tams-aws-s3.sh`** - Deployment with AWS S3 integration
-3. **`deploy-tams-vast-integration.sh`** - Full VAST integration deployment
-4. **`configure-tams-vast-s3.sh`** - Configure TAMS with VAST S3 credentials
-5. **`manage-tams.sh`** - Container management utility
+1. **`deploy-tams-v6.0.1.sh`** - Deploy TAMS v6.0.1 with VAST integration (CURRENT)
+2. **`deploy-tams-minimal.sh`** - Minimal POC deployment without external dependencies
+3. **`deploy-tams-aws-s3.sh`** - Deployment with AWS S3 integration
+4. **`deploy-tams-vast-integration.sh`** - Full VAST integration deployment
+5. **`configure-tams-vast-s3.sh`** - Configure TAMS with VAST S3 credentials
+6. **`manage-tams.sh`** - Container management utility
+7. **`find-vast-s3-config.sh`** - Helper to find VAST S3 configuration
 
 ## Troubleshooting
 
@@ -209,11 +231,14 @@ curl -v http://34.216.9.25:8000/health
 
 ## Architecture Notes
 
-- **TAMS Container**: Running Ubuntu-based Docker image with Python FastAPI
-- **Database**: SQLite for metadata storage (local to container)
+- **TAMS Version**: v6.0.1 (Git tag: v6.0.1, Commit: 3f1ccb4)
+- **TAMS Container**: Running vasttams-s3:6.0.1 Docker image with Python FastAPI
+- **Database**: VAST DB for metadata storage (tables: objects, webhooks, deletion_requests)
 - **S3 Client**: Boto3 configured for VAST S3-compatible API
+- **VAST Tables Created**: Automatically creates required tables on startup
 - **Health Checks**: Docker health check configured with 30s intervals
 - **Restart Policy**: Container auto-restarts unless explicitly stopped
+- **Telemetry**: Tracing and metrics enabled
 
 ## Future Enhancements
 

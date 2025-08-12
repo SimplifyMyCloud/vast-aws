@@ -2,9 +2,11 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**Last Updated**: August 12, 2025
+
 ## Project Overview
 
-This repository contains Terraform configurations for deploying AWS infrastructure to support Vast Datalayer. It's designed as a proof-of-concept (POC) that prioritizes simplicity for frequent deployment and teardown cycles.
+This repository contains Terraform configurations for deploying AWS infrastructure to support Vast Datalayer, plus the TAMS (Time-addressable Media Store) API v6.0.1 integration. It's designed as a proof-of-concept (POC) that prioritizes simplicity for frequent deployment and teardown cycles.
 
 ## Common Commands
 
@@ -54,11 +56,28 @@ terraform destroy
 ./delete-rds-instances.sh
 ```
 
+### TAMS Deployment and Management
+```bash
+# Deploy TAMS v6.0.1 with VAST integration (CURRENT VERSION)
+./deploy-tams-v6.0.1.sh
+
+# Manage TAMS container
+./manage-tams.sh status   # Check status
+./manage-tams.sh logs     # View logs
+./manage-tams.sh restart  # Restart container
+./manage-tams.sh shell    # Open shell in container
+
+# Find VAST S3 configuration
+./find-vast-s3-config.sh
+```
+
 ## Architecture
 
 The infrastructure creates a VPC (10.0.0.0/16) with:
 - 2 public subnets (10.0.1.0/24, 10.0.2.0/24) 
 - 2 private subnets (10.0.11.0/24, 10.0.12.0/24)
+- TAMS VM instance in public subnet (34.216.9.25)
+- VAST cluster in private subnet with VIPs (10.0.11.54, 10.0.11.170)
 - Single NAT gateway for cost optimization
 - Comprehensive security group with Vast-specific ports (VMS:5551, MLX:6126, NFS:2049, replication ports)
 - S3 deployment bucket with encryption
@@ -91,6 +110,29 @@ The security group in `security-groups.tf` includes these Vast-specific ports:
 ### AWS Profile
 The infrastructure uses the AWS profile `monks-poc-admin-chrisl` configured in `provider.tf`
 
+## VAST-TAMS Integration
+
+### Current Deployment
+- **TAMS Version**: v6.0.1
+- **TAMS API**: http://34.216.9.25:8000
+- **VAST Protocol VIPs**: 10.0.11.54, 10.0.11.170
+- **VAST Admin UI**: https://10.0.11.161 (admin/123456)
+- **S3 Buckets**: tams-db, tams-s3
+
+### Key Endpoints
+- Health: http://34.216.9.25:8000/health
+- VAST Status: http://34.216.9.25:8000/vast/status
+- API Docs: http://34.216.9.25:8000/docs
+- Sources: http://34.216.9.25:8000/sources
+- Flows: http://34.216.9.25:8000/flows
+
 ## Testing and Validation
 
-Run `terraform plan` before applying any changes to verify the impact. The project includes no automated tests - validation is done through Terraform's built-in planning and state management.
+Run `terraform plan` before applying any changes to verify the impact. For TAMS testing:
+```bash
+# Check TAMS health
+curl http://34.216.9.25:8000/health | jq .
+
+# Check VAST connection
+curl http://34.216.9.25:8000/vast/status | jq .
+```

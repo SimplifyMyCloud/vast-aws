@@ -1,6 +1,45 @@
-# Vast Datalayer AWS Infrastructure
+# Vast Datalayer AWS Infrastructure with TAMS Integration
 
-This repository contains Terraform configurations for deploying the infrastructure required to run Vast Datalayer on AWS. The infrastructure is designed as a proof-of-concept (POC) that prioritizes simplicity for frequent deployment and teardown cycles.
+This repository contains Terraform configurations for deploying the infrastructure required to run Vast Datalayer on AWS, including the TAMS (Time-addressable Media Store) API v6.0.1 integration with VAST storage clusters. The infrastructure is designed as a proof-of-concept (POC) that prioritizes simplicity for frequent deployment and teardown cycles.
+
+**Current Status**: ✅ OPERATIONAL  
+**TAMS Version**: v6.0.1  
+**Last Updated**: August 12, 2025
+
+## Quick Start
+
+### 1. Deploy Infrastructure
+```bash
+# Authenticate with AWS
+./aws-reauth.sh sso monks
+# Or source environment
+source .env
+
+# Deploy infrastructure
+terraform init
+terraform apply
+
+# Get outputs
+terraform output > infrastructure-outputs.txt
+```
+
+### 2. Deploy TAMS v6.0.1
+```bash
+# Deploy TAMS with VAST integration
+./deploy-tams-v6.0.1.sh
+
+# Check status
+./manage-tams.sh status
+
+# View logs
+./manage-tams.sh logs
+```
+
+### 3. Access Services
+- **TAMS API**: http://34.216.9.25:8000
+- **TAMS Health**: http://34.216.9.25:8000/health
+- **TAMS Docs**: http://34.216.9.25:8000/docs
+- **VAST Admin**: https://10.0.11.161 (admin/123456)
 
 ## Architecture Overview
 
@@ -91,6 +130,23 @@ Additional Resources:
 - IAM Policies: MCM and VOC security policies
 - SSH Key Pair: vast-datalayer-poc-key
 ```
+
+## Current Deployment Status
+
+### Active Services
+| Service | Status | Endpoint | Version |
+|---------|--------|----------|---------|
+| TAMS API | ✅ Running | http://34.216.9.25:8000 | v6.0.1 |
+| VAST Cluster | ✅ Running | 10.0.11.54, 10.0.11.170 | - |
+| VAST Admin | ✅ Running | https://10.0.11.161 | - |
+| Bastion Host | ✅ Running | 54.68.173.229 | Ubuntu 24.04 |
+| TAMS VM | ✅ Running | 34.216.9.25 | Ubuntu 24.04 |
+
+### VAST Integration
+- **Protocol VIPs**: 10.0.11.54, 10.0.11.170 (S3 & NFS)
+- **S3 Buckets**: tams-db, tams-s3
+- **Connection**: ✅ Healthy
+- **Tables Created**: objects, webhooks, deletion_requests
 
 ## Prerequisites
 
@@ -281,6 +337,16 @@ After the infrastructure is deployed:
 2. Configure the cluster to use the created VPC and subnets
 3. Apply appropriate security groups for your workload
 4. Set up monitoring and logging as needed
+
+## Documentation
+
+Additional documentation is available in the `/docs` directory:
+
+- **[CLAUDE.md](docs/CLAUDE.md)** - Claude Code instructions and common commands
+- **[vast-tams-integration.md](docs/vast-tams-integration.md)** - Complete TAMS + VAST integration guide
+- **[bastion-connection-guide.md](docs/bastion-connection-guide.md)** - SSH connection setup instructions
+- **[DEMO-SCREENPLAY.md](docs/DEMO-SCREENPLAY.md)** - Trade show demo screenplay
+- **[TAMS-VAST-DEMO-GUIDE.md](docs/TAMS-VAST-DEMO-GUIDE.md)** - Complete demo playbook and technical guide
 
 ## Support
 

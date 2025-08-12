@@ -31,7 +31,12 @@
       "Bash(./deploy-tams-vast-integration.sh:*)",
       "Bash(./deploy-tams-aws-s3.sh:*)",
       "Bash(ping:*)",
-      "Bash(./configure-tams-vast-s3.sh:*)"
+      "Bash(./configure-tams-vast-s3.sh:*)",
+      "Bash(git checkout:*)",
+      "Bash(git describe:*)",
+      "Bash(./deploy-tams-v6.0.1.sh:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)"
     ],
     "deny": []
   }
