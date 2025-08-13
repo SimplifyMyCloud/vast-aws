@@ -41,11 +41,11 @@ Exactly. You could auto-verify every sponsorship contract in your archive. But w
 Now imagine your social media team having instant access to create viral moments. Your sales team building custom highlight reels for sponsors. Your production team finding that perfect shot from 1987 in seconds, not days.
 
 **BROADCAST EXEC**  
-But we have 10 petabytes. The cloud storage alone would—
+But we have 100 petabytes. The cloud storage alone would—
 
 **VAST ENGINEER**  
 *(interrupting with a smile)*  
-VAST's all-flash architecture costs less than your current tape storage. No retrieval fees. No glacier delays. Every frame accessible in milliseconds. 
+VAST's all-flash architecture costs less than your current tape storage. No retrieval fees. No glacier delays. Every frame accessible in milliseconds, all on premise and lightning fast. 
 
 *The screen splits showing cost comparison: Current: $600K/year vs VAST+TAMS: $400K/year*
 
@@ -67,7 +67,7 @@ Already loaded. Want to see every overtake Verstappen made in wet conditions?
 We've been sitting on lottery tickets, haven't we?
 
 **VAST ENGINEER**  
-No. You've been sitting on a mint. TAMS and VAST just gave you the printing press.
+No. You've been sitting on hope diamonds. TAMS and VAST just gave you the printing press.
 
 **FADE TO:** *VAST logo with tagline: "Your Archive. Activated."*
 
