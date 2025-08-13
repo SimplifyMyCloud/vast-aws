@@ -12,7 +12,7 @@ You look like someone sitting on a goldmine they can't access.
 
 **BROADCAST EXEC**  
 *(sighs)*  
-Try 10 petabytes of NASCAR footage. Forty years worth. All on LTO tape in a warehouse costing us $50K a month. My CFO wants to throw it away.
+Try 100 petabytes of NASCAR footage. Forty years worth. All on LTO tape in a warehouse costing us $50K a month. My CFO wants to throw it away.
 
 **VAST ENGINEER**  
 What if I told you that footage could be making you millions instead of costing you thousands?
@@ -22,7 +22,7 @@ What if I told you that footage could be making you millions instead of costing 
 **VAST ENGINEER** *(CONT'D)*  
 This is 30 minutes of 4K footage we ingested yesterday. Watch this.  
 *(types)*  
-"Show me every second the Lucas Oil logo appears on screen."
+"How many seconds has the Lucas Oil logo appears on screen?"
 
 *The TAMS interface instantly highlights timeline segments. A counter shows: "27.3 seconds total."*
 
