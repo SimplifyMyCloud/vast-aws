@@ -506,10 +506,46 @@ Planned improvements:
 5. Logo tracking across multiple cameras/angles
 6. Automated logo quality scoring
 
+## AWS Integration
+
+The logo detection capabilities are now fully integrated with the AWS Video Processing Pipeline. When using the AWS approach:
+
+### Automatic Logo Detection
+- AWS Rekognition automatically detects text and logos
+- No manual template preparation required
+- Higher accuracy with cloud-scale AI models
+- Real-time processing as videos are uploaded
+
+### AWS vs Local Processing
+| Feature | AWS Rekognition | Local OpenCV |
+|---------|----------------|--------------|
+| Setup | Automatic | Manual templates required |
+| Accuracy | 90-95% | 70-85% |
+| Speed | 2-3 min/video | 5-10 min/video |
+| Scalability | Unlimited | Hardware limited |
+| Cost | ~$0.10/min video | Infrastructure only |
+
+### Using AWS Pipeline
+```bash
+# Deploy AWS pipeline
+./setup-aws-video-pipeline.sh
+
+# Upload video - automatic logo detection
+aws s3 cp race-video.mp4 s3://tams-storage/nvidia-ai/ \
+  --endpoint-url http://10.0.11.161:9090 --no-verify-ssl
+
+# Results include sponsor logos automatically
+curl http://34.216.9.25:8000/api/v1/flows/{flow_id}/segments | \
+  jq '.segments[] | select(.metadata.sponsors_detected | length > 0)'
+```
+
+See the [AWS Video Pipeline Documentation](aws-video-pipeline.md) for complete setup and usage instructions.
+
 ## Support
 
 For issues or questions:
-- Review logs in `ai-processing.log`
+- **AWS Pipeline**: Check CloudWatch logs at `/aws/lambda/vast-tams-video-processor`
+- **Local Processing**: Review logs in `ai-processing.log`
 - Check logo templates in `./logo_templates/`
 - Verify TAMS API connectivity
 - Ensure sufficient system resources
