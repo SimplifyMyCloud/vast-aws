@@ -40,7 +40,7 @@ curl http://34.216.9.25:8000/api/v1/flows | jq .
 ### Path 2: Long Videos (30+ minutes) - SMARTEST  
 ```bash
 # 1. Intelligent chunking (handles everything)
-./chunk-and-process.sh your-long-video.mp4
+./scripts/chunk-and-process.sh your-long-video.mp4
 
 # 2. Watch parallel processing magic
 # 3. Get unified timeline automatically
@@ -49,7 +49,7 @@ curl http://34.216.9.25:8000/api/v1/flows | jq .
 ### Path 3: Demo Mode - FASTEST TO SEE RESULTS
 ```bash
 # 1. Run complete demo (creates test video)
-./chunk-and-process.sh --demo
+./scripts/chunk-and-process.sh --demo
 
 # 2. See the entire pipeline in action
 # 3. Perfect for presentations!
@@ -62,7 +62,7 @@ curl http://34.216.9.25:8000/api/v1/flows | jq .
 ### Step 1: One-Time AWS Setup
 ```bash
 # Deploy the AWS infrastructure (only needed once)
-./setup-aws-video-pipeline.sh
+./scripts/setup-aws-video-pipeline.sh
 
 # This creates:
 # ✅ Lambda function for video processing
@@ -85,13 +85,13 @@ aws s3 cp race-highlights.mp4 s3://tams-storage/nvidia-ai/ \
 #### For Long Videos (30+ min):
 ```bash
 # Use intelligent chunking for optimal processing
-./chunk-and-process.sh full-race-broadcast.mp4 monaco_gp_2024
+./scripts/chunk-and-process.sh full-race-broadcast.mp4 monaco_gp_2024
 ```
 
 #### For Testing/Demo:
 ```bash
 # Auto-creates and processes demo video
-./chunk-and-process.sh --demo
+./scripts/chunk-and-process.sh --demo
 ```
 
 ### Step 3: Monitor Processing
@@ -193,10 +193,10 @@ curl http://34.216.9.25:8000/api/v1/flows/{flow_id} | \
 ### Essential Commands
 ```bash
 # Setup (run once)
-./setup-aws-video-pipeline.sh
+./scripts/setup-aws-video-pipeline.sh
 
 # Process any video
-./chunk-and-process.sh video.mp4
+./scripts/chunk-and-process.sh video.mp4
 
 # Or upload directly for short videos
 aws s3 cp video.mp4 s3://tams-storage/nvidia-ai/ --endpoint-url http://10.0.11.161:9090 --no-verify-ssl

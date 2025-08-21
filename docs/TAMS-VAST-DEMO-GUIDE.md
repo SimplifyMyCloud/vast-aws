@@ -171,7 +171,7 @@ curl -X POST http://34.216.9.25:8000/flows/search \
 
 ```bash
 # Start demo mode
-./manage-tams.sh status
+./scripts/manage-tams.sh status
 
 # Monitor real-time ingestion
 ssh -i ./vast-datalayer-poc-key.pem ubuntu@34.216.9.25 \
@@ -181,7 +181,7 @@ ssh -i ./vast-datalayer-poc-key.pem ubuntu@34.216.9.25 \
 curl http://34.216.9.25:8000/vast/status | jq .
 
 # Emergency demo reset
-./manage-tams.sh restart
+./scripts/manage-tams.sh restart
 ```
 
 ### Success Metrics

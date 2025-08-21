@@ -106,7 +106,7 @@ resource "aws_iam_role_policy" "video_processor_policy" {
 # Lambda function package
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "${path.module}/lambda-video-processor.py"
+  source_file = "${path.module}/scripts/lambda-video-processor.py"
   output_path = "${path.module}/lambda-video-processor.zip"
 }
 

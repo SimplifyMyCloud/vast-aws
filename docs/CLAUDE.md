@@ -13,7 +13,7 @@ This repository contains Terraform configurations for deploying AWS infrastructu
 ### Authentication
 ```bash
 # Authenticate with AWS SSO (use 'monks' profile)
-./aws-reauth.sh sso monks
+./scripts/aws-reauth.sh sso monks
 
 # Alternative: source environment variables
 source .env
@@ -41,34 +41,34 @@ terraform destroy
 ### Operational Scripts
 ```bash
 # Get VPC and subnet information
-./get-vpc-info.sh
+./scripts/get-vpc-info.sh
 
 # Check VPC dependencies before deletion
-./check-vpc-dependencies.sh
+./scripts/check-vpc-dependencies.sh
 
 # Clean up orphaned resources
-./cleanup-check.sh
+./scripts/cleanup-check.sh
 
 # Force delete VPC (use with caution)
-./force-delete-vpc.sh
+./scripts/force-delete-vpc.sh
 
 # Delete RDS instances blocking VPC deletion
-./delete-rds-instances.sh
+./scripts/delete-rds-instances.sh
 ```
 
 ### TAMS Deployment and Management
 ```bash
 # Deploy TAMS v6.0.1 with VAST integration (CURRENT VERSION)
-./deploy-tams-v6.0.1.sh
+./scripts/deploy-tams-v6.0.1.sh
 
 # Manage TAMS container
-./manage-tams.sh status   # Check status
-./manage-tams.sh logs     # View logs
-./manage-tams.sh restart  # Restart container
-./manage-tams.sh shell    # Open shell in container
+./scripts/manage-tams.sh status   # Check status
+./scripts/manage-tams.sh logs     # View logs
+./scripts/manage-tams.sh restart  # Restart container
+./scripts/manage-tams.sh shell    # Open shell in container
 
 # Find VAST S3 configuration
-./find-vast-s3-config.sh
+./scripts/find-vast-s3-config.sh
 ```
 
 ## Architecture

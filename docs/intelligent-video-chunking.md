@@ -47,25 +47,25 @@ Transform long racing videos into bite-sized chunks for optimal AI processing! T
 ### One-Command Demo
 ```bash
 # Run the complete demo with auto-generated test video
-./chunk-and-process.sh --demo
+./scripts/chunk-and-process.sh --demo
 ```
 
 ### Process Your Own Video
 ```bash
 # Process any long video file
-./chunk-and-process.sh /path/to/your/long-race-video.mp4
+./scripts/chunk-and-process.sh /path/to/your/long-race-video.mp4
 
 # With custom output name
-./chunk-and-process.sh race-monaco-2024.mp4 monaco_gp_2024
+./scripts/chunk-and-process.sh race-monaco-2024.mp4 monaco_gp_2024
 ```
 
 ### Advanced Usage
 ```bash
 # Custom chunk duration (7 minutes)
-CHUNK_DURATION=420 ./chunk-and-process.sh long-video.mp4
+CHUNK_DURATION=420 ./scripts/chunk-and-process.sh long-video.mp4
 
 # More parallel jobs for faster processing
-MAX_PARALLEL_JOBS=8 ./chunk-and-process.sh big-video.mp4
+MAX_PARALLEL_JOBS=8 ./scripts/chunk-and-process.sh big-video.mp4
 ```
 
 ## 🔧 Installation & Setup
@@ -86,9 +86,9 @@ aws configure
 
 ### File Structure
 ```
-intelligent-video-chunker.py    # Main chunking engine
-chunk-and-process.sh           # Easy-to-use wrapper script
-setup-aws-video-pipeline.sh   # AWS infrastructure setup
+scripts/intelligent-video-chunker.py    # Main chunking engine
+scripts/chunk-and-process.sh           # Easy-to-use wrapper script
+scripts/setup-aws-video-pipeline.sh   # AWS infrastructure setup
 ```
 
 ## 🎯 How It Works
@@ -209,7 +209,7 @@ SAMPLE_RATE = 30             # Check every 30th frame
 ### Real-time Progress Tracking
 ```bash
 # Monitor processing progress
-./chunk-and-process.sh long-video.mp4 &
+./scripts/chunk-and-process.sh long-video.mp4 &
 tail -f chunking_report_*.json
 
 # Watch AWS Lambda logs
@@ -353,7 +353,7 @@ def trigger_parallel_processing(self, chunks):
 ### 1. **Full Race Broadcast Processing**
 ```bash
 # Process 2-hour Monaco GP
-./chunk-and-process.sh monaco-gp-2024-full.mp4 monaco_2024
+./scripts/chunk-and-process.sh monaco-gp-2024-full.mp4 monaco_2024
 
 # Results: 24 chunks, parallel processing, complete sponsor timeline
 ```
@@ -362,7 +362,7 @@ def trigger_parallel_processing(self, chunks):
 ```bash
 # Process multiple camera angles
 for camera in onboard helicopter trackside; do
-    ./chunk-and-process.sh "race-${camera}.mp4" "monaco_${camera}"
+    ./scripts/chunk-and-process.sh "race-${camera}.mp4" "monaco_${camera}"
 done
 
 # Correlate sponsor visibility across all angles
@@ -372,7 +372,7 @@ done
 ```bash
 # Batch process entire season
 for race in *.mp4; do
-    ./chunk-and-process.sh "$race" &
+    ./scripts/chunk-and-process.sh "$race" &
 done
 wait  # Wait for all to complete
 
@@ -384,7 +384,7 @@ wait  # Wait for all to complete
 # Process race as it's being recorded
 while recording; do
     # Process completed segments
-    ./chunk-and-process.sh "race-segment-$(date +%H%M).mp4"
+    ./scripts/chunk-and-process.sh "race-segment-$(date +%H%M).mp4"
 done
 ```
 
@@ -393,7 +393,7 @@ done
 ### Interactive Demo Script
 ```bash
 # Create and process demo content
-./chunk-and-process.sh --demo
+./scripts/chunk-and-process.sh --demo
 
 # What you'll see:
 # 1. 15-minute demo video creation with sponsor overlays
@@ -414,7 +414,7 @@ ffmpeg -f lavfi -i testsrc=duration=1800:size=1920x1080:rate=30 \
        -c:v libx264 -preset fast custom-demo.mp4
 
 # Process your custom demo
-./chunk-and-process.sh custom-demo.mp4
+./scripts/chunk-and-process.sh custom-demo.mp4
 ```
 
 ## 🏆 Success Metrics
@@ -467,5 +467,5 @@ You can now process hours of racing content in minutes, with comprehensive spons
 **Ready to chunk some epic racing videos?** 🏁
 
 ```bash
-./chunk-and-process.sh your-amazing-race-video.mp4
+./scripts/chunk-and-process.sh your-amazing-race-video.mp4
 ```

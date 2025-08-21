@@ -38,7 +38,7 @@ The AI video processing system now includes advanced logo detection that identif
 Run the logo preparation script to create initial templates:
 
 ```bash
-python3 prepare-logos.py
+python3 scripts/prepare-logos.py
 ```
 
 This creates templates for common logos:
@@ -202,13 +202,13 @@ The overall flow includes logo summary:
 
 ```bash
 # 1. Prepare logos
-python3 prepare-logos.py
+python3 scripts/prepare-logos.py
 
 # 2. Process videos with logo detection
-python3 process-videos-ai.py
+python3 scripts/process-videos-ai.py
 
 # 3. Or use the orchestration script
-./run-ai-video-demo.sh ./videos
+./scripts/run-ai-video-demo.sh ./videos
 ```
 
 ### Processing Output
@@ -358,7 +358,7 @@ aws s3 cp race-video.mp4 s3://tams-storage/nvidia-ai/ \
   --endpoint-url http://10.0.11.161:9090 --no-verify-ssl
 
 # 2. Run racing-specific processing
-python3 process-racing-sponsors.py
+python3 scripts/process-racing-sponsors.py
 
 # 3. View sponsor analytics
 cat racing_results/sponsor_report_*.json

@@ -128,7 +128,7 @@ Seamless integration with the TAMS API:
 
 ```bash
 # Run the complete setup
-./setup-aws-video-pipeline.sh
+./scripts/setup-aws-video-pipeline.sh
 ```
 
 This script will:
@@ -218,6 +218,8 @@ Use the generated demo script:
 # Run complete demo
 ./demo-aws-pipeline.sh
 ```
+
+**Note:** The `demo-aws-pipeline.sh` script is generated during setup and placed in the current directory.
 
 This will:
 - Create a test video with sponsor overlays

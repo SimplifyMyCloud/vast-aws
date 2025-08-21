@@ -37,7 +37,9 @@
       "Bash(./deploy-tams-v6.0.1.sh:*)",
       "Bash(mkdir:*)",
       "Bash(mv:*)",
-      "Bash(aws s3:*)"
+      "Bash(aws s3:*)",
+      "Bash(sed:*)",
+      "Bash(scripts/chunk-and-process.sh:*)"
     ],
     "deny": []
   }

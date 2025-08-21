@@ -31,10 +31,10 @@ For massive racing broadcasts and long content:
 
 ```bash
 # Process any length video with smart chunking
-./chunk-and-process.sh your-2-hour-race.mp4
+./scripts/chunk-and-process.sh your-2-hour-race.mp4
 
 # Or run the amazing demo
-./chunk-and-process.sh --demo
+./scripts/chunk-and-process.sh --demo
 
 # Features:
 # - Scene-aware splitting (no mid-action cuts)
@@ -50,7 +50,7 @@ For individual videos under 30 minutes:
 
 ```bash
 # Deploy AWS pipeline (one command)
-./setup-aws-video-pipeline.sh
+./scripts/setup-aws-video-pipeline.sh
 
 # Upload videos and watch magic happen
 aws s3 cp your-video.mp4 s3://tams-storage/nvidia-ai/ \
@@ -66,11 +66,11 @@ For offline or local processing:
 
 ```bash
 # Setup and run local processing
-python3 prepare-logos.py
-python3 process-videos-ai.py
+python3 scripts/prepare-logos.py
+python3 scripts/process-videos-ai.py
 
 # For racing-specific sponsor detection
-python3 process-racing-sponsors.py
+python3 scripts/process-racing-sponsors.py
 ```
 
 ### Option 4: Manual Demo Setup
@@ -79,7 +79,7 @@ For hands-on demonstration:
 
 ```bash
 # Run the complete demo
-./run-tams-vast-demo.sh
+./scripts/run-tams-vast-demo.sh
 ```
 
 ## 🎯 Use Cases Covered

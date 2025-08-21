@@ -83,22 +83,22 @@ ssh -i ./vast-datalayer-poc-key.pem ubuntu@54.68.173.229
 ### Container Management
 ```bash
 # Check TAMS status
-./manage-tams.sh status
+./scripts/manage-tams.sh status
 
 # View container logs
-./manage-tams.sh logs [number_of_lines]
+./scripts/manage-tams.sh logs [number_of_lines]
 
 # Restart TAMS container
-./manage-tams.sh restart
+./scripts/manage-tams.sh restart
 
 # Stop TAMS container
-./manage-tams.sh stop
+./scripts/manage-tams.sh stop
 
 # Start TAMS container
-./manage-tams.sh start
+./scripts/manage-tams.sh start
 
 # Open shell in container
-./manage-tams.sh shell
+./scripts/manage-tams.sh shell
 ```
 
 ### Direct Docker Commands (on TAMS VM)
@@ -252,7 +252,7 @@ curl -v http://34.216.9.25:8000/health
 ## Support
 
 For issues or questions:
-- Check container logs: `./manage-tams.sh logs`
+- Check container logs: `./scripts/manage-tams.sh logs`
 - SSH to TAMS VM: `ssh -i ./vast-datalayer-poc-key.pem ubuntu@34.216.9.25`
 - Review VAST admin UI: https://10.0.11.161 (admin/123456)
 

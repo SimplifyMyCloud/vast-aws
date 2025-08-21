@@ -26,7 +26,7 @@
 ## ⚙️ One-Time Setup Checklist (10 minutes)
 
 ### Deploy AWS Infrastructure
-- [ ] Run setup script: `./setup-aws-video-pipeline.sh`
+- [ ] Run setup script: `./scripts/setup-aws-video-pipeline.sh`
 - [ ] Verify Lambda function created: `aws lambda get-function --function-name vast-tams-video-processor`
 - [ ] Confirm S3 event notifications configured
 - [ ] Test with small video file
@@ -58,7 +58,7 @@ aws s3 cp your-video.mp4 s3://tams-storage/nvidia-ai/ \
 #### ☐ Path B: Long Videos (30+ minutes)
 ```bash
 # Intelligent chunking
-./chunk-and-process.sh your-long-video.mp4 [optional-name]
+./scripts/chunk-and-process.sh your-long-video.mp4 [optional-name]
 ```
 - [ ] Video analysis completed
 - [ ] Chunks created successfully
@@ -69,7 +69,7 @@ aws s3 cp your-video.mp4 s3://tams-storage/nvidia-ai/ \
 #### ☐ Path C: Demo Mode
 ```bash
 # Auto-demo with test video
-./chunk-and-process.sh --demo
+./scripts/chunk-and-process.sh --demo
 ```
 - [ ] Demo video created (15 minutes with sponsors)
 - [ ] Chunking demonstrated
